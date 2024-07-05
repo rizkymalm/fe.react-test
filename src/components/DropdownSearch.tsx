@@ -3,7 +3,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import CheckIcon from "@mui/icons-material/Check";
 import palette from "../themes/palette";
 import { useState } from "react";
-import { findObj } from "../utils/helpers";
 
 type Props = {
   multiple: Boolean;
@@ -105,18 +104,17 @@ const DropdownSearch = ({
     }
   };
   const handleSelectItem = async (value: Number) => {
-    var searchIndex = await findObj(optionItems, "value", value);
     if (multiple) {
-      if (selectedIndex.indexOf(searchIndex) === -1) {
-        setSelectedIndex((prevState: any) => [...prevState, searchIndex]);
+      if (selectedIndex.indexOf(value) === -1) {
+        setSelectedIndex((prevState: any) => [...prevState, value]);
         setSearchText("");
-        setFocus(false);
+        // setFocus(false);
         setFilteredItems(optionItems);
       }
     } else {
       if (selectedIndex.length === 0) {
-        if (selectedIndex.indexOf(searchIndex) === -1) {
-          setSelectedIndex((prevState: any) => [...prevState, searchIndex]);
+        if (selectedIndex.indexOf(value) === -1) {
+          setSelectedIndex((prevState: any) => [...prevState, value]);
           setSearchText("");
           setFocus(false);
           setFilteredItems(optionItems);
@@ -136,7 +134,7 @@ const DropdownSearch = ({
       >
         {selectedIndex.map((data: any) => (
           <SelectedValue>
-            {optionItems[data].label}
+            {optionItems[data - 1].label}
             <CloseIcon onClick={() => handleDeleteSelected(data)} />
           </SelectedValue>
         ))}
@@ -157,13 +155,13 @@ const DropdownSearch = ({
               onClick={() => handleSelectItem(data.value)}
               style={{
                 cursor:
-                  selectedIndex.indexOf(index) !== -1
+                  selectedIndex.indexOf(data.value) !== -1
                     ? "not-allowed"
                     : "pointer",
               }}
             >
               <span>{data.label}</span>
-              {selectedIndex.indexOf(index) !== -1 && (
+              {selectedIndex.indexOf(data.value) !== -1 && (
                 <CheckIcon fontSize="small" />
               )}
             </li>
