@@ -46,6 +46,10 @@ npm run storybook
 yarn storybook
 ```
 
+<h3 align="left">Storybook url:</h3>
+<p>local: http://localhost:6006/</p>
+<p>server-test: http://34.46.66.225/</p>
+
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
